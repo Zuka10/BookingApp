@@ -1,16 +1,21 @@
-﻿using BookingApp.Repository;
+﻿using BookingApp.Facade;
+using BookingApp.Facade.Repositories;
+using BookingApp.Repository;
+using BookingApp.Service;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookingApp;
 
 public static class Startup
 {
-    public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddControllersWithViews();
         services.AddMvc();
         services.AddDbContext<BookingAppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("MSSQLTest")));
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ICustomerService, CustomerService>();
     }
 
     public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)

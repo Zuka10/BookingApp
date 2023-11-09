@@ -1,9 +1,10 @@
 ﻿using BookingApp.DTO;
+using BookingApp.Facade;
 using BookingApp.Facade.Repositories;
 
 namespace BookingApp.Service;
 
-public class CustomerService
+public class CustomerService : ICustomerService
 {
     private IUnitOfWork _unitOfWork;
 

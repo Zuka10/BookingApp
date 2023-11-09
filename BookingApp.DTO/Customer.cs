@@ -11,5 +11,5 @@ public class Customer
     public string PersonalNumber { get; set; } = null!;
     public string Address { get; set; } = null!;
 
-    public City City { get; set;} = null!; 
+    //public City City { get; set;} = null!; 
 }

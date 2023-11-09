@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BookingApp.Repository;
 
-public class UnitOfWork
+public class UnitOfWork : IUnitOfWork
 {
     private IDbContextTransaction? _transaction;
     private readonly BookingAppDbContext _context;

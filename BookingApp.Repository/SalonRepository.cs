@@ -3,7 +3,7 @@ using BookingApp.Facade.Repositories;
 using System.Runtime.CompilerServices;
 
 #if DEBUG
-[assembly: InternalsVisibleTo("WarehouseManager.Tests")]
+[assembly: InternalsVisibleTo("BookingApp.Test")]
 #endif
 
 namespace BookingApp.Repository;

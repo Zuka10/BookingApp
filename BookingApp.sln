@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp", "BookingApp\BookingApp.csproj", "{2619C0B5-04D2-453B-85FE-4804B9B96AD7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp", "BookingApp\BookingApp.csproj", "{2619C0B5-04D2-453B-85FE-4804B9B96AD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.DTO", "BookingApp.DTO\BookingApp.DTO.csproj", "{BF061737-04E1-434E-B907-E9E104000D1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.DTO", "BookingApp.DTO\BookingApp.DTO.csproj", "{BF061737-04E1-434E-B907-E9E104000D1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.Repository", "BookingApp.Repository\BookingApp.Repository.csproj", "{A3ECB634-C477-4CD6-98CB-D8B78AB46829}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.Repository", "BookingApp.Repository\BookingApp.Repository.csproj", "{A3ECB634-C477-4CD6-98CB-D8B78AB46829}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.Facade", "BookingApp.Facade\BookingApp.Facade.csproj", "{E7384283-41E8-4B8F-A2CB-267DB87355EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.Facade", "BookingApp.Facade\BookingApp.Facade.csproj", "{E7384283-41E8-4B8F-A2CB-267DB87355EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingApp.Service", "BookingApp.Service\BookingApp.Service.csproj", "{414F4399-8F04-4387-886D-4A06ABB4385F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingApp.Service", "BookingApp.Service\BookingApp.Service.csproj", "{414F4399-8F04-4387-886D-4A06ABB4385F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
