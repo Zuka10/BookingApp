@@ -1,0 +1,36 @@
+﻿@model BookingApp.DTO.Customer
+
+<h2>Register</h2>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+{
+    @Html.LabelFor(model => model.FirstName)
+    @Html.TextBoxFor(model => model.FirstName)
+    <br />
+
+    @Html.LabelFor(model => model.LastName)
+    @Html.TextBoxFor(model => model.LastName)
+    <br />
+
+    @Html.LabelFor(model => model.BirthDate)
+    @Html.TextBoxFor(model => model.BirthDate, "{0:yyyy-MM-dd}", new { type = "date" })
+    <br />
+
+    @Html.LabelFor(model => model.Email)
+    @Html.TextBoxFor(model => model.Email)
+    <br />
+
+    @Html.LabelFor(model => model.Password)
+    @Html.PasswordFor(model => model.Password)
+    <br />
+
+    @Html.LabelFor(model => model.PersonalNumber)
+    @Html.TextBoxFor(model => model.PersonalNumber)
+    <br />
+
+    @Html.LabelFor(model => model.Address)
+    @Html.TextBoxFor(model => model.Address)
+    <br />
+
+    <input type="submit" value="Register" />
+}
