@@ -1,5 +1,7 @@
 ﻿using BookingApp.DTO;
-using BookingApp.Facade;
+using BookingApp.Facade.Services;
+using BookingApp.Models;
+using BookingApp.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingApp.Controllers
@@ -26,9 +28,9 @@ namespace BookingApp.Controllers
         {
             try
             {
-                _service.Register(customer);
+                _service.CreateCustomer(customer);
                 // Redirect to a confirmation page or login page after successful registration
-                return Ok("sg dzma klanshi ginda?");
+                return RedirectToAction("Login");
             }
             catch (Exception ex)
             {
@@ -39,10 +41,34 @@ namespace BookingApp.Controllers
             }
         }
 
-        public IActionResult RegistrationConfirmation()
+        [HttpGet]
+        public IActionResult Login()
         {
-            // You can create a view for the registration confirmation page
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(LoginViewModel loginViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                // Perform authentication logic
+                var authenticatedCustomer = _service.Authenticate(loginViewModel.Email, loginViewModel.Password);
+
+                if (authenticatedCustomer != null)
+                {
+                    // Authentication successful, you can set up a user session or cookie here
+                    return Ok("Great you are part of family");
+                }
+                else
+                {
+                    // Authentication failed
+                    ModelState.AddModelError(string.Empty, "Invalid email or password");
+                }
+            }
+
+            // If ModelState is not valid, redisplay the login form with validation errors
+            return View(loginViewModel);
         }
     }
 }

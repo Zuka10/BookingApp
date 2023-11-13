@@ -1,9 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Registration Page";
+    ViewData["Title"] = "Welcome to BookingApp";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Register</h1>
-    <p>Ready to get started? Register now!</p>
-    <p>@Html.ActionLink("Go to Registration Page", "Register", "Account", new { @class = "btn btn-primary" })</p>
+    <h1 class="display-4">Welcome to BookingApp</h1>
+    <p>Ready to get started?</p>
+    <p>@Html.ActionLink("Register", "Register", "Account", new { @class = "btn btn-primary" })</p>
+    <p>Already have an account? @Html.ActionLink("Login", "Login", "Account", new { @class = "btn btn-success" })</p>
 </div>

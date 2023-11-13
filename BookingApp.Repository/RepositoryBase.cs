@@ -22,6 +22,13 @@ public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
 
     public IQueryable<TEntity> Set() => _dbSet;
 
+    public TEntity Find(Expression<Func<TEntity, bool>> predicate)
+    {
+        if (predicate == null) throw new ArgumentNullException(nameof(predicate));
+
+        return _dbSet.SingleOrDefault(predicate);
+    }
+
     public void Insert(TEntity entity)
     {
         if (entity == null) throw new ArgumentNullException(nameof(entity));

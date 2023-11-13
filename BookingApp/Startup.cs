@@ -1,5 +1,5 @@
-﻿using BookingApp.Facade;
-using BookingApp.Facade.Repositories;
+﻿using BookingApp.Facade.Repositories;
+using BookingApp.Facade.Services;
 using BookingApp.Repository;
 using BookingApp.Service;
 using Microsoft.EntityFrameworkCore;
