@@ -1,20 +1,21 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Facade.Services;
 using BookingApp.Models;
-using BookingApp.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingApp.Controllers
 {
     public class AccountController : Controller
     {
-        private ICustomerService _service;
+        private ICustomerService _customerService;
+        private ITokenService _tokenService;
         private readonly ILogger<AccountController> _logger;
 
-        public AccountController(ICustomerService service, ILogger<AccountController> logger)
+        public AccountController(ICustomerService customerService, ITokenService tokenService, ILogger<AccountController> logger)
         {
-            _service = service;
+            _customerService = customerService;
             _logger = logger;
+            _tokenService = tokenService;
         }
 
         [HttpGet]
@@ -28,13 +29,11 @@ namespace BookingApp.Controllers
         {
             try
             {
-                _service.CreateCustomer(customer);
-                // Redirect to a confirmation page or login page after successful registration
+                _customerService.CreateCustomer(customer);
                 return RedirectToAction("Login");
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it appropriately
                 _logger.LogError(message: ex.Message);
                 ModelState.AddModelError(string.Empty, "An error occurred during registration.");
                 return View(customer);
@@ -52,22 +51,21 @@ namespace BookingApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Perform authentication logic
-                var authenticatedCustomer = _service.Authenticate(loginViewModel.Email, loginViewModel.Password);
+                var authenticatedCustomer = _customerService.Authenticate(loginViewModel.Email, loginViewModel.Password);
 
                 if (authenticatedCustomer != null)
                 {
-                    // Authentication successful, you can set up a user session or cookie here
-                    return Ok("Great you are part of family");
+                    var token = _tokenService.GenerateToken(authenticatedCustomer);
+                    Response.Headers.Add("Authorization", "Bearer " + token);
+
+                    return Ok("Logged in successfully");
                 }
                 else
                 {
-                    // Authentication failed
                     ModelState.AddModelError(string.Empty, "Invalid email or password");
                 }
             }
 
-            // If ModelState is not valid, redisplay the login form with validation errors
             return View(loginViewModel);
         }
     }
