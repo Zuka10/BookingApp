@@ -21,14 +21,14 @@ public class CountryService : ICountryService
 
     public void Update(Country country)
     {
-        _unitOfWork.CountryRepository.Get(country);
-        _unitOfWork.CountryRepository.Update(country);
+        var existingCountry = _unitOfWork.CountryRepository.Get(country.Id);
+        _unitOfWork.CountryRepository.Update(existingCountry);
         _unitOfWork.SaveChanges();
     }
 
     public void Delete(Country country)
     {
-        _unitOfWork.CountryRepository.Get(country);
+        _unitOfWork.CountryRepository.Get(country.Id);
         _unitOfWork.CountryRepository.Delete(country);
         _unitOfWork.SaveChanges();
     }
@@ -42,6 +42,7 @@ public class CountryService : ICountryService
 
     public IEnumerable<Country> GetAll()
     {
-        throw new NotImplementedException();
+        var countries = _unitOfWork.CountryRepository.GetAll();
+        return countries;
     }
 }

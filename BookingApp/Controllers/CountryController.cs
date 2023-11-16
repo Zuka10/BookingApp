@@ -1,6 +1,7 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Facade.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookingApp.Controllers
 {
@@ -11,6 +12,12 @@ namespace BookingApp.Controllers
         public CountryController(ICountryService countryService)
         {
             _countryService = countryService;
+        }
+
+        public IActionResult Index()
+        {
+            var countries = _countryService.GetAll(); // Assuming you have a method to get all countries
+            return View(countries);
         }
 
         public IActionResult Create()
@@ -25,7 +32,7 @@ namespace BookingApp.Controllers
             if (ModelState.IsValid)
             {
                 _countryService.Create(country);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Country");
             }
 
             return View(country);
@@ -55,7 +62,7 @@ namespace BookingApp.Controllers
             if (ModelState.IsValid)
             {
                 _countryService.Update(country);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Country");
             }
 
             return View(country);
@@ -85,7 +92,7 @@ namespace BookingApp.Controllers
                 _countryService.Delete(country);
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Country");
         }
     }
 }

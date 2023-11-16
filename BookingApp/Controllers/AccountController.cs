@@ -58,7 +58,7 @@ namespace BookingApp.Controllers
                     var token = _tokenService.GenerateToken(authenticatedCustomer);
                     Response.Headers.Add("Authorization", "Bearer " + token);
 
-                    return Ok("Logged in successfully");
+                    return RedirectToAction("Index", "Country");
                 }
                 else
                 {

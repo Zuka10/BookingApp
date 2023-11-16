@@ -26,7 +26,7 @@ public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity>
     {
         if (predicate == null) throw new ArgumentNullException(nameof(predicate));
 
-        return _dbSet.SingleOrDefault(predicate);
+        return _dbSet.SingleOrDefault(predicate)!;
     }
 
     public void Insert(TEntity entity)
