@@ -22,6 +22,8 @@ public class CountryService : ICountryService
     public void Update(Country country)
     {
         var existingCountry = _unitOfWork.CountryRepository.Get(country.Id);
+        existingCountry.Name = country.Name;
+        existingCountry.Cities = country.Cities;
         _unitOfWork.CountryRepository.Update(existingCountry);
         _unitOfWork.SaveChanges();
     }

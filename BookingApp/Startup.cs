@@ -21,6 +21,7 @@ public static class Startup
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ICustomerService, CustomerService>();
         services.AddScoped<ICountryService, CountryService>();
+        services.AddScoped<ICityService, CityService>();
 
         services.AddAuthentication(options =>
         {

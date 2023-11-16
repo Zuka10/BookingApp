@@ -1,5 +1,5 @@
 ﻿@using BookingApp.DTO;
-@model IEnumerable<Country>
+@model IEnumerable<City>
 
 <style>
     .create-button-container {
@@ -16,26 +16,26 @@
         }
 </style>
 
-<h2>Country List</h2>
+<h2>City List</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>Name</th>
-            <th>Cities</th>
+            <th>Country</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var country in Model)
+        @foreach (var city in Model)
         {
             <tr>
-                <td>@country.Name</td>
-                <td>@country.Cities</td>
+                <td>@city.Name</td>
+                <td>@city.Country</td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@country.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@country.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@country.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@city.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@city.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@city.Id">Delete</a>
                 </td>
             </tr>
         }
