@@ -58,7 +58,7 @@ public class AccountController : Controller
                 var token = _tokenService.GenerateToken(authenticatedCustomer);
                 Response.Headers.Add("Authorization", "Bearer " + token);
 
-                return RedirectToAction("Index", "Country");
+                return RedirectToAction("Index", "Home");
             }
             else
             {

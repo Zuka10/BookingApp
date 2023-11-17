@@ -1,5 +1,6 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Facade.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingApp.Controllers;
@@ -15,7 +16,7 @@ public class CountryController : Controller
 
     public IActionResult Index()
     {
-        var countries = _countryService.GetAll(); // Assuming you have a method to get all countries
+        var countries = _countryService.GetAll();
         return View(countries);
     }
 

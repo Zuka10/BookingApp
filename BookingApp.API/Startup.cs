@@ -7,21 +7,47 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace BookingApp;
+namespace BookingApp.API;
 
 public static class Startup
 {
     public static void ConfigureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddControllersWithViews();
-        services.AddMvc();
         services.AddDbContext<BookingAppDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("MSSQLTest")));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ICustomerService, CustomerService>();
+        services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ICountryService, CountryService>();
-        services.AddScoped<ICityService, CityService>();
+        services.AddControllers();
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen(c =>
+        {
+            c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "BookingApp API", Version = "v1" });
+
+            c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Description = "JWT Authorization header using the Bearer scheme",
+                Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+                Scheme = "Bearer",
+                BearerFormat = "JWT"
+            });
+
+            c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+                {
+                    {
+                        new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                        {
+                            Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                            {
+                                Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
+        });
 
         services.AddAuthentication(options =>
         {
@@ -46,7 +72,8 @@ public static class Startup
     {
         if (env.IsDevelopment())
         {
-            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API V1")); 
         }
         else
         {
@@ -55,18 +82,7 @@ public static class Startup
         }
 
         app.UseHttpsRedirection();
-        app.UseStaticFiles();
-
-        app.UseRouting();
-
         app.UseAuthentication();
         app.UseAuthorization();
-
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-        });
     }
 }
