@@ -2,10 +2,8 @@
 using BookingApp.Facade.Services;
 using BookingApp.Repository;
 using BookingApp.Service;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace BookingApp;
 
@@ -16,30 +14,34 @@ public static class Startup
         services.AddControllersWithViews();
         services.AddMvc();
         services.AddDbContext<BookingAppDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("MSSQLTest")));
+            options.UseSqlServer(configuration.GetConnectionString("MSSQLTest"), b => b.MigrationsAssembly("BookingApp")));
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<ITokenService, TokenService>();
+        //services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<ICustomerService, CustomerService>();
         services.AddScoped<ICountryService, CountryService>();
         services.AddScoped<ICityService, CityService>();
+        services.AddScoped<IPostService, PostService>();
 
-        services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        }).AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = configuration["Jwt:Issuer"],
-                ValidAudience = configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]!))
-            };
-        });
+        services.AddDefaultIdentity<IdentityUser>()
+            .AddEntityFrameworkStores<BookingAppDbContext>();
+
+        //services.AddAuthentication(options =>
+        //{
+        //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        //}).AddJwtBearer(options =>
+        //{
+        //    options.TokenValidationParameters = new TokenValidationParameters
+        //    {
+        //        ValidateIssuer = true,
+        //        ValidateAudience = true,
+        //        ValidateLifetime = true,
+        //        ValidateIssuerSigningKey = true,
+        //        ValidIssuer = configuration["Jwt:Issuer"],
+        //        ValidAudience = configuration["Jwt:Audience"],
+        //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]!))
+        //    };
+        //});
     }
 
     public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)

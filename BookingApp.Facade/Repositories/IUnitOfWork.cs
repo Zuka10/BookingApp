@@ -7,6 +7,7 @@ public interface IUnitOfWork
     ICustomerRepository CustomerRepository { get; }
     ISpaRepository SpaRepository { get; }
     ISalonRepository SalonRepository { get; }
+    IPostRepository PostRepository { get; }
 
     void BeginTransaction();
     void Commit();

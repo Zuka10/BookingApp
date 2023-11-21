@@ -1,0 +1,50 @@
+﻿@using BookingApp.DTO;
+@model IEnumerable<Post>
+
+<style>
+    .create-button-container {
+        border: 1px solid black;
+        padding: 4px;
+        display: inline-block;
+        height: 35px;
+        /* Keep the container size fixed */
+    }
+
+        .create-button-container a {
+            text-decoration: none;
+            color: black; /* Match the text color to the border color */
+        }
+</style>
+
+<h2>Post List</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td>@post.Title</td>
+                <td>@post.Description</td>
+                <td>@post.Image</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@post.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@post.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@post.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="create-button-container">
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+</div>

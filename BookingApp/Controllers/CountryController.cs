@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookingApp.Controllers;
 
+[Authorize]
 public class CountryController : Controller
 {
     private ICountryService _countryService;

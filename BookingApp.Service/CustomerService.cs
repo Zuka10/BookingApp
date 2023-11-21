@@ -21,7 +21,7 @@ public class CustomerService : ICustomerService
 
     public void DeleteCustomer(Customer customer)
     {
-        _unitOfWork.CustomerRepository.Get(customer);
+        _unitOfWork.CustomerRepository.Get(customer.Id);
         if (customer != null)
         {
             _unitOfWork.CustomerRepository.Delete(customer);

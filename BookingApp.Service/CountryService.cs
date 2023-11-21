@@ -30,9 +30,12 @@ public class CountryService : ICountryService
 
     public void Delete(Country country)
     {
-        _unitOfWork.CountryRepository.Get(country.Id);
-        _unitOfWork.CountryRepository.Delete(country);
-        _unitOfWork.SaveChanges();
+        var existingCountry = _unitOfWork.CountryRepository.Get(country.Id);
+        if (existingCountry != null)
+        {
+            _unitOfWork.CountryRepository.Delete(country);
+            _unitOfWork.SaveChanges();
+        }
     }
 
     public Country GetById(int id)

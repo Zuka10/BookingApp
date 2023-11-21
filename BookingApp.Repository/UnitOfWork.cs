@@ -14,6 +14,7 @@ public class UnitOfWork : IUnitOfWork
     private readonly Lazy<ICityRepository> _cityRepository;
     private readonly Lazy<ISalonRepository> _salonRepository;
     private readonly Lazy<ICustomerRepository> _customerRepository;
+    private readonly Lazy<IPostRepository> _postRepository;
 
     public UnitOfWork(BookingAppDbContext context, ILogger<UnitOfWork> logger)
     {
@@ -24,6 +25,7 @@ public class UnitOfWork : IUnitOfWork
         _salonRepository = new Lazy<ISalonRepository>(() => new SalonRepository(context));
         _countryRepository = new Lazy<ICountryRepository>(() => new CountryRepository(context));
         _customerRepository = new Lazy<ICustomerRepository>(() => new CustomerRepository(context));
+        _postRepository = new Lazy<IPostRepository>(() => new PostRepository(context));
     }
 
     public ISpaRepository SpaRepository => _spaRepository.Value;
@@ -31,6 +33,7 @@ public class UnitOfWork : IUnitOfWork
     public ICityRepository CityRepository => _cityRepository.Value;
     public ICountryRepository CountryRepository => _countryRepository.Value;
     public ICustomerRepository CustomerRepository => _customerRepository.Value;
+    public IPostRepository PostRepository => _postRepository.Value;
 
     public void BeginTransaction()
     {

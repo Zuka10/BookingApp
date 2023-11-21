@@ -30,9 +30,12 @@ public class CityService : ICityService
 
     public void Delete(City city)
     {
-        _unitOfWork.CityRepository.Get(city.Id);
-        _unitOfWork.CityRepository.Delete(city);
-        _unitOfWork.SaveChanges();
+        var existingCity = _unitOfWork.CityRepository.Get(city.Id);
+        if (existingCity != null)
+        {
+            _unitOfWork.CityRepository.Delete(city);
+            _unitOfWork.SaveChanges();
+        }
     }
 
     public City GetById(int id)
