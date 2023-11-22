@@ -1,7 +1,6 @@
 ﻿using BookingApp.DTO;
 using BookingApp.Facade.Repositories;
 using BookingApp.Facade.Services;
-using System.Diagnostics.Metrics;
 
 namespace BookingApp.Service;
 

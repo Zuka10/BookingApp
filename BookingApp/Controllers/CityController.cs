@@ -41,7 +41,6 @@ public class CityController : Controller
         return View(city);
     }
 
-
     public IActionResult Edit(int id)
     {
         var city = _cityService.GetById(id);

@@ -1,50 +1,65 @@
-﻿@using BookingApp.DTO;
+﻿@using BookingApp.DTO
 @model IEnumerable<Post>
 
 <style>
-    .create-button-container {
-        border: 1px solid black;
-        padding: 4px;
+
+    .post-container {
+        border: 1px solid #ddd;
+        margin: 10px;
+        padding: 10px;
         display: inline-block;
-        height: 35px;
-        /* Keep the container size fixed */
+        width: 650px;
+        text-align: center;
+        position: relative; /* Set position to relative for absolute positioning of title */
     }
 
-        .create-button-container a {
-            text-decoration: none;
-            color: black; /* Match the text color to the border color */
-        }
+    .post-image {
+        height: 450px;
+        width: 550px;
+        margin-bottom: 10px; /* Add some space between image and text */
+    }
+
+    .post-title {
+        font-weight: bold;
+        position: absolute;
+        top: -22px; /* Adjust the top position as needed */
+        left: 10px; /* Adjust the left position as needed */
+        width: calc(100% - 20px); /* Adjust the width to fit within the container with some padding */
+        white-space: nowrap; /* Prevent title from wrapping */
+        overflow: hidden; /* Hide overflowing text */
+        text-overflow: ellipsis; /* Add ellipsis for overflow */
+    }
+
+    .create-button-container {
+        margin-bottom: 20px; /* Add some space between the button and the posts */
+    }
 </style>
-
-<h2>Post List</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Image</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var post in Model)
-        {
-            <tr>
-                <td>@post.Title</td>
-                <td>@post.Description</td>
-                <td>@post.Image</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@post.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@post.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@post.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 <div class="create-button-container">
     <p>
         <a asp-action="Create">Create New</a>
     </p>
 </div>
+
+<h2>Posts</h2>
+
+@{
+    var reversedPosts = Model.Reverse();
+}
+
+@foreach (var post in reversedPosts)
+{
+    <div class="post-container">
+        @if (post.Image != null)
+        {
+            <img src="data:image/png;base64,@Convert.ToBase64String(post.Image)" class="post-image" alt="Post Image" />
+        }
+        <div class="post-title">@post.Title</div>
+        <div class="post-description">@post.Description</div>
+        <div>
+            <a asp-action="Edit" asp-route-id="@post.Id">Edit</a> |
+            <a asp-action="Details" asp-route-id="@post.Id">Details</a> |
+            <a asp-action="Delete" asp-route-id="@post.Id">Delete</a>
+        </div>
+    </div>
+}
