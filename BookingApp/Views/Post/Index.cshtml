@@ -2,6 +2,10 @@
 @model IEnumerable<Post>
 
 <style>
+    .header{
+        text-align: center;
+    }
+
     .post-container {
         border: 1px solid #ddd;
         margin: 10px;
@@ -36,11 +40,13 @@
 
 <div class="create-button-container">
     <p>
-        <a asp-action="Create">Create New</a>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Create New
+            </a>
     </p>
 </div>
 
-<h2>Posts</h2>
+<h2 class="header">Posts</h2>
 
 @{
     var reversedPosts = Model.Reverse();

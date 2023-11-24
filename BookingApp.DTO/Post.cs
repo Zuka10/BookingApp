@@ -15,4 +15,5 @@ public class Post
 
     [Required(ErrorMessage = "Image is required")]
     public byte[]? Image { get; set; } = null!;
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
 }
