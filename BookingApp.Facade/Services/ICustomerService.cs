@@ -6,5 +6,5 @@ public interface ICustomerService
 {
     public void CreateCustomer(Customer customer);
     public void DeleteCustomer(Customer customer);
-    public Customer Authenticate(string email, string password);
+    public Customer? Authenticate(string email, string password);
 }

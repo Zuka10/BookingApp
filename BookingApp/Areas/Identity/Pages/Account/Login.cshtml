@@ -5,8 +5,21 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 50vh; /* Set a minimum height to occupy the full viewport height */
+    }
+
+    .login-title{
+        text-align: center;
+    }
+</style>
+
+<h1 class="login-title" , style="color: rgb(0, 156, 71)">@ViewData["Title"]</h1>
+<div class="row login-container">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">

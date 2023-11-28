@@ -54,14 +54,38 @@ public class PostController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, Post post)
+    public IActionResult Edit(int id, Post post, IFormFile newImage)
     {
         if (id != post.Id)
         {
             return NotFound();
         }
 
-        _postService.Update(post);
+        // Retrieve the existing post from the database
+        var existingPost = _postService.GetById(id);
+
+        if (existingPost == null)
+        {
+            return NotFound();
+        }
+
+        // Update properties other than Image
+        existingPost.Title = post.Title;
+        existingPost.Description = post.Description;
+
+        // Check if a new image is provided
+        if (newImage != null && newImage.Length > 0)
+        {
+            using (var ms = new MemoryStream())
+            {
+                newImage.CopyTo(ms);
+                existingPost.Image = ms.ToArray();
+            }
+        }
+
+        // Update the post in the database
+        _postService.Update(existingPost);
+
         return RedirectToAction("Index", "Post");
     }
 
@@ -90,5 +114,17 @@ public class PostController : Controller
         }
 
         return RedirectToAction("Index", "Post");
+    }
+
+    public IActionResult Details(int id)
+    {
+        var post = _postService.GetById(id);
+
+        if (post == null)
+        {
+            return NotFound();
+        }
+
+        return View(post);
     }
 }

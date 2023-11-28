@@ -6,7 +6,7 @@ namespace BookingApp.Service;
 
 public class CustomerService : ICustomerService
 {
-    private IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
     public CustomerService(IUnitOfWork unitOfWork)
     {
@@ -27,7 +27,7 @@ public class CustomerService : ICustomerService
             _unitOfWork.CustomerRepository.Delete(customer);
         }
     }
-    public Customer Authenticate(string email, string password)
+    public Customer? Authenticate(string email, string password)
     {
         var customer = GetByEmail(email);
 
@@ -42,8 +42,6 @@ public class CustomerService : ICustomerService
 
     private bool VerifyPassword(string enteredPassword, string storedPassword)
     {
-        // Implement your password verification logic (e.g., hashing)
-        // For simplicity, this example assumes plain text comparison
         return enteredPassword == storedPassword;
     }
 

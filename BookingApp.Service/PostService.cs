@@ -6,7 +6,7 @@ namespace BookingApp.Service;
 
 public class PostService : IPostService
 {
-    private IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
     public PostService(IUnitOfWork unitOfWork)
     {
@@ -51,5 +51,4 @@ public class PostService : IPostService
         _unitOfWork.SaveChanges();
         return post;
     }
-
 }

@@ -1,0 +1,11 @@
+﻿@model BookingApp.DTO.Post
+
+<div>
+    <h4>@Model.Title</h4>
+    <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Post Image" style="width: 650px; height: 400px" />
+    <p>@Model.Description</p>
+    <!-- Add more details as needed -->
+</div>
+<p>
+    <a asp-action="Index">Back to Posts</a>
+</p>

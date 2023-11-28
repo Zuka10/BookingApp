@@ -21,6 +21,14 @@
         <label asp-for="Image"></label>
         <input asp-for="Image" type="file" class="form-control" />
         <span asp-validation-for="Image" class="text-danger"></span>
+
+        @if (Model.Image != null)
+        {
+            <div>
+                <label>Existing Image</label>
+                <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Existing Image" style="max-width: 100%; height: auto;" />
+            </div>
+        }
     </div>
 
     <div class="form-group" style="margin-top: 10px;">

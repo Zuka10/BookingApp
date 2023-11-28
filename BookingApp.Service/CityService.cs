@@ -6,7 +6,7 @@ namespace BookingApp.Service;
 
 public class CityService : ICityService
 {
-    private IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
     public CityService(IUnitOfWork unitOfWork)
     {

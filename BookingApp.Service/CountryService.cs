@@ -6,7 +6,7 @@ namespace BookingApp.Service;
 
 public class CountryService : ICountryService
 {
-    private IUnitOfWork _unitOfWork;
+    private readonly IUnitOfWork _unitOfWork;
 
     public CountryService(IUnitOfWork unitOfWork)
     {
