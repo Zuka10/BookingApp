@@ -1,11 +1,39 @@
-﻿@model BookingApp.DTO.Post
+﻿@using System.Text;
+@model BookingApp.DTO.Post
+
+@{
+    string formattedDescription = InsertLineBreaks(Model.Description, 80);
+}
 
 <div>
     <h4>@Model.Title</h4>
     <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Post Image" style="width: 650px; height: 400px" />
-    <p>@Model.Description</p>
-    <!-- Add more details as needed -->
+    <p style="white-space: pre-wrap;">@formattedDescription</p>
 </div>
 <p>
     <a asp-action="Index">Back to Posts</a>
 </p>
+
+@functions {
+    string InsertLineBreaks(string input, int lineLength)
+    {
+        if (input.Length <= lineLength)
+        {
+            return input;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < input.Length; i += lineLength)
+        {
+            int remainingLength = Math.Min(lineLength, input.Length - i);
+            sb.Append(input.Substring(i, remainingLength));
+
+            if (i + lineLength < input.Length)
+            {
+                sb.AppendLine();
+            }
+        }
+
+        return sb.ToString();
+    }
+}
